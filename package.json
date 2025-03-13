@@ -1,0 +1,33 @@
+{
+  "name": "app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.0.13",
+    "bootstrap-icons": "^1.11.3",
+    "pinia": "^3.0.1",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^4.0.13",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-vue": "^10.0.0",
+    "globals": "^16.0.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "vite": "^6.2.0",
+    "vite-plugin-vue-devtools": "^7.7.2",
+    "vue-eslint-parser": "^10.1.1"
+  },
+  "packageManager": "yarn@4.5.1+sha512.341db9396b6e289fecc30cd7ab3af65060e05ebff4b3b47547b278b9e67b08f485ecd8c79006b405446262142c7a38154445ef7f17c1d5d1de7d90bf9ce7054d"
+}
