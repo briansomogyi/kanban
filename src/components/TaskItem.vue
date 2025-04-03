@@ -6,10 +6,11 @@ defineProps({
     }
 })
 </script>
+
 <template>
     <div
-        class="flex max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-        <h6 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        class="mb-1 flex max-w-sm rounded-lg border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <h6 class="text-xl tracking-tight text-gray-900 dark:text-white">
             {{ taskName }}
         </h6>
     </div>
