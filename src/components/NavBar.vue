@@ -6,7 +6,7 @@ import axios from "axios"
 function helloFromServer() {
     axios({
         method: "get",
-        url: "http://localhost:3000"
+        url: "http://localhost:3000/get-started"
     }).then(response => {
         emit("onHelloText", response.data)
     })

@@ -12,10 +12,9 @@ function onHelloText(response) {
 <template>
   <NavBar @onHelloText="onHelloText" />
 
-  <pre class="mt-45">
-    {{ helloText.name }}
-    {{ helloText.age }}
-  </pre>
+  <h1 class="mt-35 text-2xl">
+    {{ helloText.message }}
+  </h1>
 
   <div class="mt-25">
     <RouterView />
