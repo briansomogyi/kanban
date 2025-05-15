@@ -1,8 +1,22 @@
-@mainUrl = http://localhost:3000/
+@mainUrl = http://localhost:3000
 
 ###
 #
-GET {{mainUrl}}
+POST {{mainUrl}}/kanban/add-new-list HTTP/1.1
+content-type: application/json
+
+{
+    "name": "test"
+}
+
+###
+#
+DELETE {{mainUrl}}/kanban/delete-list
+content-type: application/json
+
+{
+    "id": "1"
+}
 
 ###
 #

@@ -1,39 +1,30 @@
 <script setup>
+const emit = defineEmits(["cancelEdit"])
 import { ref } from "vue"
-const inputMode = ref(false)
-function changeMode() {
-    inputMode.value = !inputMode.value
-    columnName.value = ""
-}
+const props = defineProps({
+    columnName: {
+        type: String,
+        default: ""
+    },
+    columnId: {
+        type: Number,
+        default: 0
+    }
+})
 
 import { useKanban } from "../stores/kanban"
 const kanbanStore = useKanban()
-
-const columnName = ref("")
+const columnName = ref(props.columnName)
 function saveColumn() {
-    const checkname = new RegExp("^[a-zA-Z0-9 ]*$")
-    if (!checkname.test(columnName.value)) {
-        isError.value = true
-        setTimeout(() => {
-            isError.value = false
-        }, 4000)
-        return
-
-    }
-    kanbanStore.addNewColumn(columnName.value)
-    changeMode();
-}</script>
+    kanbanStore.editList(props.columnId, columnName.value)
+    emit("cancelEdit")
+}
+</script>
 
 <template>
-    <button v-if="!inputMode" type="button"
-        class="ms-2 mb-2 rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
-        @click="changeMode">
-        <i class="bi bi-plus-circle-dotted"></i> Add Column
-    </button>
-
-    <form v-else class="mx-auto ms-2 max-w-md" @submit.prevent="saveColumn">
+    <form class="mx-auto ms-2 max-w-md" @submit.prevent="saveColumn">
         <label for="default-search" class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Add new column
+            Edit column
         </label>
         <div class="relative">
             <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
@@ -41,14 +32,14 @@ function saveColumn() {
             </div>
             <input v-model="columnName" type="search"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Add new column..." required @keydown.enter="submit" />
+                placeholder="Edit column..." required @keydown.enter="submit" />
             <button type="submit"
                 class="absolute end-16.5 bottom-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Add
+                Save
             </button>
             <button
                 class="absolute end-2.5 bottom-2.5 rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:ring-4 focus:ring-red-300 focus:outline-none dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                @click.prevent="changeMode">
+                @click.prevent="$emit('cancelEdit')">
                 <i class="bi bi-x-circle"></i>
             </button>
         </div>

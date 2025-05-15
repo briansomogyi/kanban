@@ -8,12 +8,26 @@ import pluginPrettier from "eslint-config-prettier"
 export default [
   { files: ["**/*.{js,mjs,cjs,vue}"] },
   {
-    languageOptions: { globals: globals.browser },
-    rules: {
-      "no-alert": "error"
-    }
+    languageOptions: { globals: globals.browser }
   },
   pluginJs.configs.recommended,
   ...pluginVue.configs["flat/strongly-recommended"],
+  {
+    rules: {
+      "no-alert": "error",
+      "vue/v-on-event-hyphenation": [
+        "error",
+        "never",
+        {
+          autofix: true
+        }],
+      "vue/attribute-hyphenation": [
+        "error",
+        "never",
+        {
+          autofix: true
+        }]
+    }
+  },
   pluginPrettier
 ];

@@ -1,5 +1,7 @@
 import express from "express"
 import bodyParser from "body-parser"
+import { kanbanRouter } from "./routing/kanban.router.js"
+import { generalRouter } from "./routing/general.router.js"
 const router = express.Router()
 
 const api = express()
@@ -25,30 +27,8 @@ api.use(function (req, res, next) {
 })
 
 api.use(bodyParser.json())
-
-api.get("/get-started", (req, res) => {
-    res.send(JSON.stringify({ message: "Salut!" }))
-})
-
-const lists = []
-api.get("/kanban", (req, res) => {
-    res.send(JSON.stringify(lists))
-})
-
-api.post("/kanban/add-new-list", (req, res) => {
-    const { name } = req.body
-    lists.push({ name: name, tasks: [] })
-})
-
-api.post("/kanban/add-new-task", (req, res) => {
-    const { columnId, name } = req.body
-    lists[columnId].tasks.push({ name })
-})
-
-api.delete("/kanban/delete-list", (req, res) => {
-    const { id } = req.body
-    lists.splice(id, 1)
-})
+api.use("/kanban", kanbanRouter)
+api.use(generalRouter)
 
 api.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

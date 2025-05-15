@@ -9,12 +9,12 @@ export const useKanban = defineStore("kanban", {
         }
     },
     actions: {
-        fetchKanbanLists() {
+        fetchKanbanlists() {
             axios.get("http://localhost:3000/kanban").then(response => {
                 this.lists = response.data
             })
         },
-        addNewList(columnName) {
+        addNewColumn(columnName) {
             this.lists.push({ name: columnName, tasks: [] })
 
             axios.post(
@@ -37,18 +37,29 @@ export const useKanban = defineStore("kanban", {
                 data: { id }
             })
         },
-        addNewTask(taskName, columnId) {
-            this.lists[columnId].tasks.push({ name: taskName })
+        addNewTask(taskName, listId) {
+            this.lists[listId].tasks.push({ name: taskName })
 
             axios.post(
                 "http://localhost:3000/kanban/add-new-task",
-                { columnId, name: taskName },
+                { listId, name: taskName },
                 {
                     headers: {
                         "Content-Type": "application/json"
                     }
                 }
             )
+        },
+        editList(columnId, columnName) {
+            console.log(columnId, columnName)
+            this.lists[columnId].name = columnName
+
+            axios.put("http://localhost:3000/kanban/edit-list", {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                data: { id: columnId, name: columnName }
+            })
         }
     }
 })

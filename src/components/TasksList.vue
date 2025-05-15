@@ -2,6 +2,8 @@
 import TaskItem from "./TaskItem.vue"
 import AddNewTask from "./AddNewTask.vue"
 
+import EditList from "./EditList.vue"
+
 const props = defineProps({
     columnName: {
         type: String,
@@ -13,6 +15,9 @@ const props = defineProps({
     }
 })
 
+import { ref } from "vue"
+const isEditMode = ref(false)
+
 import { useKanban } from "../stores/kanban"
 const kanbanStore = useKanban()
 
@@ -23,8 +28,9 @@ function deleteList() {
 
 <template>
     <div class="ms-2">
-        <div
-            class="flex max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <div v-if="!isEditMode"
+            class="flex max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+            @click="isEditMode = true">
             <h6 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {{ columnName }}
             </h6>
@@ -34,6 +40,9 @@ function deleteList() {
                 @click="deleteList">
                 <i class="bi bi-x-circle"></i>
             </button>
+        </div>
+        <div v-else>
+            <EditList :columnId="columnId" :columnName="columnName" @cancelEdit="isEditMode = false" />
         </div>
         <div class="mt-3 flex flex-col">
             <div v-for="(task, index) in kanbanStore.lists[columnId].tasks" :key="index">
