@@ -20,4 +20,14 @@ content-type: application/json
 
 ###
 #
-GET {{mainUrl}}/test
+GET {{mainUrl}}/kanban
+
+###
+#
+POST {{mainUrl}}/kanban/add-new-task HTTP/1.1
+content-type: application/json
+
+{
+    "listId": "5",
+    "name": "test"
+}

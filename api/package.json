@@ -2,9 +2,17 @@
   "name": "api",
   "type": "module",
   "packageManager": "yarn@4.5.1",
+  "scripts": {
+    "dev": "node api-express.js"
+  },
   "dependencies": {
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
-    "ls": "^0.2.1"
+    "ls": "^0.2.1",
+    "mysql2": "^3.14.1",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }

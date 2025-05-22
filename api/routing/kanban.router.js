@@ -9,8 +9,8 @@ import {
 
 export const kanbanRouter = Router()
 
-kanbanRouter.get("/", (req, res) => {
-    res.send(JSON.stringify(getKanbanLists()))
+kanbanRouter.get("/", async (req, res) => {
+    res.send(JSON.stringify(await getKanbanLists()))
 })
 
 kanbanRouter.post("/add-new-list", (req, res) => {
