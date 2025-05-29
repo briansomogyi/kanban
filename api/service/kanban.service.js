@@ -2,9 +2,11 @@ import { List, Task } from "../db.js"
 
 export const lists = []
 
-export const addNewList = columnName => {
-    List.create({ name: columnName })
+export const addNewList = async columnName => {
+    const list = await List.create({ name: columnName })
     // lists.push({ name: columnName, tasks: [] })
+
+    return list
 }
 
 export const addNewTask = (listId, taskName) => {
@@ -18,6 +20,8 @@ export const deleteList = id => {
             id: id
         }
     })
+
+    // Task.destroy()
     // lists.splice(id, 1)
 }
 export const editList = (id, name) => {

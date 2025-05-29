@@ -13,15 +13,15 @@ kanbanRouter.get("/", async (req, res) => {
     res.send(JSON.stringify(await getKanbanLists()))
 })
 
-kanbanRouter.post("/add-new-list", (req, res) => {
+kanbanRouter.post("/add-new-list", async (req, res) => {
     const columnName = req.body.name
     const checkname = new RegExp("^[a-zA-Z0-9 ]*$")
     if (!checkname.test(columnName)) {
         res.status(400).send("Invalid list name")
         return
     }
-    addNewList(columnName)
-    res.send("ok")
+
+    res.send(JSON.stringify(await addNewList(columnName)))
 })
 
 kanbanRouter.post("/add-new-task", (req, res) => {

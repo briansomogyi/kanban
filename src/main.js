@@ -8,4 +8,5 @@ const pinia = createPinia()
 
 import "bootstrap-icons/font/bootstrap-icons.css"
 
+import "./ws"
 createApp(App).use(router).use(pinia).mount("#app")

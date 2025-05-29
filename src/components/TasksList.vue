@@ -15,7 +15,7 @@ const props = defineProps({
     }
 })
 
-import { ref } from "vue"
+import { computed, ref } from "vue"
 const isEditMode = ref(false)
 
 import { useKanban } from "../stores/kanban"
@@ -24,6 +24,8 @@ const kanbanStore = useKanban()
 function deleteList() {
     kanbanStore.deleteList(props.columnId)
 }
+
+const tasksList = computed(() => kanbanStore.lists.find(list => list.id === props.columnId))
 </script>
 
 <template>
@@ -37,7 +39,7 @@ function deleteList() {
 
             <button
                 class="ms-4 rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:ring-4 focus:ring-red-300 focus:outline-none dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                @click="deleteList">
+                @click.stop="deleteList">
                 <i class="bi bi-x-circle"></i>
             </button>
         </div>
@@ -45,7 +47,7 @@ function deleteList() {
             <EditList :columnId="columnId" :columnName="columnName" @cancelEdit="isEditMode = false" />
         </div>
         <div class="mt-3 flex flex-col">
-            <div v-for="(task, index) in kanbanStore.lists[columnId].tasks" :key="index">
+            <div v-for="(task, index) in tasksList?.tasks" :key="index">
                 <TaskItem :taskName="task.name"></TaskItem>
             </div>
             <AddNewTask :columnId="columnId"></AddNewTask>
